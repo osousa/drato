@@ -1,8 +1,8 @@
 # Wire: Automated Initialization in Go
 
-[![Build Status](https://github.com/google/wire/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/google/wire/actions)
-[![godoc](https://godoc.org/github.com/google/wire?status.svg)][godoc]
-[![Coverage](https://codecov.io/gh/google/wire/branch/master/graph/badge.svg)](https://codecov.io/gh/google/wire)
+[![Build Status](https://github.com/osousa/drato/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/osousa/drato/actions)
+[![godoc](https://godoc.org/github.com/osousa/drato?status.svg)][godoc]
+[![Coverage](https://codecov.io/gh/osousa/drato/branch/master/graph/badge.svg)](https://codecov.io/gh/osousa/drato)
 
 
 Wire is a code generation tool that automates connecting components using
@@ -16,15 +16,15 @@ For an overview, see the [introductory blog post][].
 
 [dependency injection]: https://en.wikipedia.org/wiki/Dependency_injection
 [introductory blog post]: https://blog.golang.org/wire
-[godoc]: https://godoc.org/github.com/google/wire
-[travis]: https://travis-ci.com/google/wire
+[godoc]: https://godoc.org/github.com/osousa/drato
+[travis]: https://travis-ci.com/osousa/drato
 
 ## Installing
 
 Install Wire by running:
 
 ```shell
-go install github.com/google/wire/cmd/wire@latest
+go install github.com/osousa/drato/cmd/wire@latest
 ```
 
 and ensuring that `$GOPATH/bin` is added to your `$PATH`.
@@ -52,7 +52,7 @@ reports and fixes.
 
 ## Community
 
-For questions, please use [GitHub Discussions](https://github.com/google/wire/discussions).
+For questions, please use [GitHub Discussions](https://github.com/osousa/drato/discussions).
 
 This project is covered by the Go [Code of Conduct][].
 
