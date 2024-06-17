@@ -1,4 +1,6 @@
-# Wire: Automated Initialization in Go
+# ~~Wire~~ Drato: Automated Initialization in Go
+Drato is a fork of Wire with a simple mod that allows for fast config injection:
+https://github.com/google/wire/issues/387
 
 [![Build Status](https://github.com/osousa/drato/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/osousa/drato/actions)
 [![godoc](https://godoc.org/github.com/osousa/drato?status.svg)][godoc]
