@@ -1004,6 +1004,8 @@ func processInterfaceValue(fset *token.FileSet, info *types.Info, call *ast.Call
 func processFieldsOf(fset *token.FileSet, info *types.Info, call *ast.CallExpr) ([]*Field, error) {
 	// Assumes that call.Fun is wire.FieldsOf.
 
+	fmt.Printf("processFieldsOf\n")
+
 	if len(call.Args) < 2 {
 		return nil, notePosition(fset.Position(call.Pos()),
 			errors.New("call to FieldsOf must specify fields to be extracted"))
@@ -1075,7 +1077,7 @@ func checkField(f ast.Expr, st *types.Struct) (*types.Var, error) {
 			return st.Field(i), nil
 		}
 	}
-	return nil, fmt.Errorf("%s is not a field of %s", b.Value, st.String())
+	return nil, fmt.Errorf("%s is NOT a field of %s", b.Value, st.String())
 }
 
 // findInjectorBuild returns the wire.Build call if fn is an injector template.
