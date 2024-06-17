@@ -768,7 +768,7 @@ func processStructLiteralProvider(fset *token.FileSet, typeName *types.TypeName)
 
 	pos := typeName.Pos()
 	fmt.Fprintf(os.Stderr,
-		"Warning: %v, see https://godoc.org/github.com/google/wire#Struct for more information.\n",
+		"Warning: %v, see https://godoc.org/github.com/osousa/drato#Struct for more information.\n",
 		notePosition(fset.Position(pos),
 			fmt.Errorf("using struct literal to inject %s is deprecated and will be removed in the next release; use wire.Struct instead",
 				typeName.Type())))
@@ -1092,7 +1092,9 @@ func checkField(f ast.Expr, st *types.Struct) (*types.Var, error) {
 			return st.Field(i), nil
 		}
 	}
-	return nil, fmt.Errorf("%s is NOT a field of %s", fieldName, st.String())
+
+  return nil, fmt.Errorf("%s is NOT a field of %s", fieldName, st.String())
+
 }
 
 // findInjectorBuild returns the wire.Build call if fn is an injector template.
@@ -1156,7 +1158,7 @@ func isWireImport(path string) bool {
 	if i := strings.LastIndex(path, vendorPart); i != -1 && (i == 0 || path[i-1] == '/') {
 		path = path[i+len(vendorPart):]
 	}
-	return path == "github.com/google/wire"
+	return path == "github.com/osousa/drato"
 }
 
 func isProviderSetType(t types.Type) bool {
