@@ -1003,7 +1003,6 @@ func processInterfaceValue(fset *token.FileSet, info *types.Info, call *ast.Call
 // processFieldsOf creates a slice of fields from a wire.FieldsOf call.
 func processFieldsOf(fset *token.FileSet, info *types.Info, call *ast.CallExpr) ([]*Field, error) {
 	// Assumes that call.Fun is wire.FieldsOf.
-
 	if len(call.Args) < 2 {
 		return nil, notePosition(fset.Position(call.Pos()),
 			errors.New("call to FieldsOf must specify fields to be extracted"))
@@ -1032,14 +1031,28 @@ func processFieldsOf(fset *token.FileSet, info *types.Info, call *ast.CallExpr) 
 		return nil, notePosition(fset.Position(call.Pos()),
 			fmt.Errorf(firstArgReqFormat, types.TypeString(t, nil)))
 	}
-	if struc.NumFields() < len(call.Args)-1 {
+
+	fieldsToProcess := call.Args[1:]
+	if len(call.Args) == 2 {
+		if ident, ok := call.Args[1].(*ast.BasicLit); ok && ident.Value == `"*"` {
+			fieldsToProcess = make([]ast.Expr, struc.NumFields())
+			for i := 0; i < struc.NumFields(); i++ {
+				fieldsToProcess[i] = &ast.BasicLit{
+					Value: strconv.Quote(struc.Field(i).Name()),
+					Kind:  token.STRING,
+				}
+			}
+		}
+	}
+
+	if struc.NumFields() < len(fieldsToProcess) {
 		return nil, notePosition(fset.Position(call.Pos()),
 			fmt.Errorf("fields number exceeds the number available in the struct which has %d fields", struc.NumFields()))
 	}
 
-	fields := make([]*Field, 0, len(call.Args)-1)
-	for i := 1; i < len(call.Args); i++ {
-		v, err := checkField(call.Args[i], struc)
+	fields := make([]*Field, 0, len(fieldsToProcess))
+	for _, arg := range fieldsToProcess {
+		v, err := checkField(arg, struc)
 		if err != nil {
 			return nil, notePosition(fset.Position(call.Pos()), err)
 		}
@@ -1064,18 +1077,22 @@ func processFieldsOf(fset *token.FileSet, info *types.Info, call *ast.CallExpr) 
 // field name.
 func checkField(f ast.Expr, st *types.Struct) (*types.Var, error) {
 	b, ok := f.(*ast.BasicLit)
-	if !ok {
+	if !ok || b.Kind != token.STRING {
 		return nil, fmt.Errorf("%v must be a string with the field name", f)
 	}
+	fieldName, err := strconv.Unquote(b.Value)
+	if err != nil {
+		return nil, fmt.Errorf("invalid field name %v", b.Value)
+	}
 	for i := 0; i < st.NumFields(); i++ {
-		if strings.EqualFold(strconv.Quote(st.Field(i).Name()), b.Value) {
+		if st.Field(i).Name() == fieldName {
 			if isPrevented(st.Tag(i)) {
-				return nil, fmt.Errorf("%s is prevented from injecting by wire", b.Value)
+				return nil, fmt.Errorf("%s is prevented from injecting by wire", fieldName)
 			}
 			return st.Field(i), nil
 		}
 	}
-	return nil, fmt.Errorf("%s is not a field of %s", b.Value, st.String())
+	return nil, fmt.Errorf("%s is NOT a field of %s", fieldName, st.String())
 }
 
 // findInjectorBuild returns the wire.Build call if fn is an injector template.
