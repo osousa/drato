@@ -17,7 +17,7 @@ package bar
 import (
 	"os"
 
-	"github.com/osousa/drato/internal/wire"
+	wire "github.com/osousa/drato"
 )
 
 var Value = wire.Value(os.Stdout)
