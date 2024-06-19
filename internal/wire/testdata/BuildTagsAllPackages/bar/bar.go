@@ -18,7 +18,7 @@
 // Package bar includes both wireinject and non-wireinject variants.
 package bar
 
-import "github.com/google/wire"
+import wire "github.com/osousa/drato"
 
 // Set provides an unfriendly user greeting.
 var Set = wire.NewSet(wire.Value("Bah humbug! This is the wrong variant!"))
