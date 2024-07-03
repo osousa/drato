@@ -8,7 +8,7 @@ Drato is a fork of Wire with a simple mod that allows for:
    https://github.com/google/wire/issues/32
    https://github.com/google/wire/issues/286
 
-2) Generics support:
+2) Generics support (somewhat):
    https://github.com/google/wire/issues?q=generics
 
 3) [Why drato?](https://translate.google.pt/?hl=pt-PT&sl=auto&tl=eo&text=wire&op=translate)
