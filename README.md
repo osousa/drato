@@ -1,11 +1,15 @@
 # ~~Wire~~ Drato: Automated Initialization in Go
-Drato is a fork of Wire with a simple mod that allows for fast config injections:
-(inject all fields of a struct using wire.FieldsOf(new(T), "*") 
-https://github.com/google/wire/issues/204
-https://github.com/google/wire/issues/387
-https://github.com/google/wire/issues/32
-https://github.com/google/wire/issues/286
+Drato is a fork of Wire with a simple mod that allows for:
 
+1) fast config injections:
+   (inject all fields of a struct using wire.FieldsOf(new(T), "*")
+   https://github.com/google/wire/issues/204
+   https://github.com/google/wire/issues/387
+   https://github.com/google/wire/issues/32
+   https://github.com/google/wire/issues/286
+
+3) Generics support:
+   https://github.com/google/wire/issues?q=generics
 
 Wire is a code generation tool that automates connecting components using
 [dependency injection][]. Dependencies between components are represented in
