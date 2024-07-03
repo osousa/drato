@@ -8,8 +8,12 @@ Drato is a fork of Wire with a simple mod that allows for:
    https://github.com/google/wire/issues/32
    https://github.com/google/wire/issues/286
 
-3) Generics support:
+2) Generics support:
    https://github.com/google/wire/issues?q=generics
+
+3) [Why drato?](https://translate.google.pt/?hl=pt-PT&sl=auto&tl=eo&text=wire&op=translate)
+
+---
 
 Wire is a code generation tool that automates connecting components using
 [dependency injection][]. Dependencies between components are represented in
